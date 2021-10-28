@@ -1,0 +1,40 @@
+version: '3'
+
+services:
+  app1: 
+    build: 
+     context: C:\Users\djani\Documents\docker-application1
+     dockerfile: Dockerfile
+    image: image_name
+    networks:
+     - gateway
+    volumes: 
+     - type: bind
+       source: .
+       target: /code/volume
+
+    ports: 
+     - "8000:8000"
+
+
+
+  app2: 
+
+    build: 
+     context: C:\Users\djani\Documents\docker-application2
+     dockerfile: Dockerfile
+    image: docker_application2_image
+    networks:
+     - gateway
+    ports:
+     - "8080:8080"
+
+networks:
+  gateway: {} 
+
+       
+
+
+   
+
+
