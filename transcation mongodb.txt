@@ -1,0 +1,41 @@
+const mongoose = require('mongoose');
+ const uri = 'mongodb://localhost:27017,localhost:27018,localhost:27019/txn';
+ await mongoose.connect(uri, { replicaSet: 'rs' });
+
+ await mongoose.connection.dropDatabase();
+ const Account = mongoose.model('Account', new mongoose.Schema({
+   name: String, balance: Number
+ }));
+
+ await Account.create([{ name: 'A', balance: 5 }, { name: 'B', balance: 10 }]);
+
+ await transfer('A', 'B', 4); // Success
+ try {
+     await transfer('A', 'B', 2);
+ } catch (error) {
+   error.message;
+ }
+
+async function transfer(from, to, amount) {
+   const session = await mongoose.startSession();
+   session.startTransaction();
+   try {
+     const opts = { session, new: true }; // <--- !!!!This is a problem option
+     const A = await Account.
+       findOneAndUpdate({ name: from }, { $inc: { balance: -amount } }, opts); // <------- Error when I put option
+    if (A.balance < 0) {
+       throw new Error('Insufficient funds: ' + (A.balance + amount));
+     }
+
+     const B = await Account.
+       findOneAndUpdate({ name: to }, { $inc: { balance: amount } }, opts); // <------- Error when I put option
+
+     await session.commitTransaction();
+     session.endSession();
+     return { from: A, to: B };
+   } catch (error) {
+     await session.abortTransaction();
+     session.endSession();
+    throw error; // Rethrow so calling function sees error
+   }
+ }

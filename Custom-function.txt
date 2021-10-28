@@ -1,0 +1,262 @@
+function updateOne(collection, query, data, id=null) {
+    var output;
+    try {
+        output = collection.updateOne(query, data)
+        if (output && output.matchedCount == 0) {
+            throw "Document does not exist."
+        }
+        else if (output && output.modifiedCount == 0) {
+            throw "Document exists but could not be updated"
+        }
+        else if (output && output.modifiedCount == 1) {
+            return;
+        }
+        else {
+            throw "Document could not be updated"
+        }
+    }
+    catch (error) {
+        if (id)
+            throw "Error: "+error + " id: "+id;
+        throw "Error: "+error;
+    }
+}
+function updateMany(collection, query, data, id=null) {
+    var output;
+    try {
+        output = collection.updateMany(query, data)
+        if (output && output.matchedCount == 0) {
+            throw "No document in the database matches the query"
+        }
+        else if (output.modifiedCount == 0) {
+            throw "Document matching the query found but could not be updated"
+        }
+        else {
+            return;
+        }
+    }
+    catch (error) {
+        if (id)
+            throw "Error: "+error + " id: "+id;
+        throw "Error: "+error;
+    }
+}
+// options can be writeConcern<document>
+function insertOne(collection, data, options=null, id=null) {
+    var output;
+    
+    try {
+        output = collection.insertOne(data, options)
+        if(output && output.insertedId) {
+            return;
+        }
+        else {
+            throw "Document not inserted"
+        }
+    }
+    catch (error) {
+        if (id)
+            throw "Error: "+error + " id: "+id;
+        throw "Error: "+error;
+    }
+}
+// options can be writeConcern<document> or ordered <boolean>
+function insertMany(collection, data, options=null, id=null) {
+    var output;
+    try {
+        output = collection.insertMany(data, options)
+        if (output && output.insertedIds) {
+            return;
+        }
+        else {
+            throw "Documents not inserted"
+        }
+    }
+    catch (error) {
+        if (id)
+            throw "Error: "+error + " id: "+id;
+        throw "Error: "+error;
+    }
+}
+// can also use remove method and pass justOne=true to delete only the first doc that matches the criteria
+function deleteOne(collection, query, options=null, id=null) {
+    var output;
+    try {
+        output = collection.deleteOne(query)
+        if (!output || !output.deletedCount) {
+            throw "Document could not be deleted."
+        }
+        else {
+            return;
+        }
+    }
+    catch (error) {
+        if (id)
+            throw "Error: "+error + " id: "+id;
+        throw "Error: "+error;
+    }
+}
+function deleteMany(collection, query, options=null, id=null) {
+    var output;
+    try {
+        output = collection.deleteMany(query)
+        if (!output || !output.deletedCount) {
+            throw "Documents could not be deleted."
+        }
+        else {
+            return;
+        }
+    }
+    catch (error) {
+        if (id)
+            throw "Error: "+error + " id: "+id;
+        throw "Error: "+error;
+    }
+}
+function findOne(collection, query, projection=null, id=null) {
+    var output;
+    try {
+        output = collection.findOne(query, projection)
+        if (!output) {
+            throw "Couldn't find the document matching the criteria"
+        }
+        else {
+            return output;
+        }
+    }
+    catch (error) {
+        if (id)
+            throw "Error: "+error + " id: "+id;
+        throw "Error: "+error;
+    }
+}
+function findMany(collection, query, projection=null, id=null) {
+    var output;
+    try {
+        output = collection.find(query, projection).toArray()
+        if (output.length == 0) {
+            throw "Couldn't find the documents matching the criteria"
+        }
+        else {
+            return output;
+        }
+    }
+    catch (error) {
+        if (id)
+            throw "Error: "+error + " id: "+id;
+        throw "Error: "+error;
+    }
+}
+function findManyCursor(collection, query, projection=null, id=null) {
+    
+    var output;
+    try {
+        output = collection.find(query, projection)
+        if (output.count() == 0) {
+            throw "Couldn't find the documents matching the criteria"
+        }
+        else {
+            return output;
+        }
+    }
+    catch (error) {
+        if (id)
+            throw "Error: "+error + " id: "+id;
+        throw "Error: "+error;
+    }
+}
+function dropCollection(collection) {
+    var output;
+    try {
+        output = collection.drop()
+        
+        if (output) {
+            return;
+        }
+        else {
+            throw "Collection does not exist"
+        }
+    }
+    catch (error) {
+        throw "Error: "+error;
+    }
+}
+function createIndex(collection, keys, options=null, id=null) {
+    var output;
+    try {
+        output = collection.createIndex(keys, options)
+        if (output && output.ok == 1) {
+            return;
+        }
+        else {
+            throw output + "\n" + "CodeName: " +output.codeName
+        }
+    }
+    catch (error) {
+        if (id)
+            throw "Error: "+error + " id: "+id;
+        throw "Error: "+error;
+    }
+}
+function countDocuments(collection, query={}, options=null, id=null) {
+    var input_coll_name = collection._shortName
+    var coll_names = db.getCollectionNames()
+    var output;
+    try {
+        output = collection.countDocuments(query, options)
+        
+        // If collection exists
+        if (coll_names.includes(input_coll_name)) {
+            return output;
+        }
+        // If collection doesn't exist
+        else {
+            throw "Collection does not exist"
+        }
+    }
+    catch (error) {
+        if (id)
+            throw "Error: "+error + " id: "+id;
+        throw "Error: "+error;
+    }
+}
+function renameCollection(collection, target, dropTarget=false, id=null) {
+    var output;
+    try {
+        output = collection.renameCollection(target, dropTarget)
+        if (output.ok == 1) {
+            return;
+        }
+        else {
+            if (output.codeName == 'NamespaceExists') {
+                throw "Collection with name " + target + " already exists"
+            }
+            else if(output.codeName == 'IllegalOperation') {
+                throw "Invalid name: "+target
+            }
+            else {
+                throw output
+            }
+        }
+    }
+    catch (error) {
+        if (id)
+            throw "Error: "+error + " id: "+id;
+        throw "Error: "+error;
+    }
+}
+function verifyCollectionCount(collection, numDocuments) {
+    var output;
+    try {
+        output = countDocuments(collection)
+        if (output == numDocuments) {
+            return true;
+        }
+        else {
+            throw "count of Documents is not equal to actual count"
+        }
+    }
+    catch (error) {
+        throw error;
+    }
+}

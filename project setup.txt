@@ -1,0 +1,104 @@
+PS C:\Users\djani\Downloads\paybotus\src\services\paybotus-service> py -3.7 -m virtualenv env               //3.9 tha par humhe 3.7 chahiye tha
+created virtual environment CPython3.7.0.final.0-64 in 13314ms
+  creator CPython3Windows(dest=C:\Users\djani\Downloads\paybotus\src\services\paybotus-service\env, clear=False, no_vcs_ignore=False, global=False)
+  seeder FromAppData(download=False, pip=bundle, setuptools=bundle, wheel=bundle, via=copy, app_data_dir=C:\Users\djani\AppData\Local\pypa\virtualenv)
+    added seed packages: pip==21.1.3, setuptools==57.1.0, wheel==0.36.2
+  activators BashActivator,BatchActivator,FishActivator,PowerShellActivator,PythonActivator,XonshActivator
+PS C:\Users\djani\Downloads\paybotus\src\services\paybotus-service> env/scripts/activate
+(env) PS C:\Users\djani\Downloads\paybotus\src\services\paybotus-service> cd ..
+(env) PS C:\Users\djani\Downloads\paybotus\src\services> cd ..
+(env) PS C:\Users\djani\Downloads\paybotus\src> cd ..
+(env) PS C:\Users\djani\Downloads\paybotus> pip install -r requiremets.txt
+ERROR: Could not open requirements file: [Errno 2] No such file or directory: 'requiremets.txt'
+WARNING: You are using pip version 21.1.3; however, version 21.2.1 is available.
+You should consider upgrading via the 'C:\Users\djani\Downloads\paybotus\src\services\paybotus-service\env\Scripts\python.exe -m pip install --upgrade pip' command.
+(env) PS C:\Users\djani\Downloads\paybotus> pip install -r requirements.txt
+Processing c:\users\djani\downloads\paybotus\src\frameworks\condition-evaluator
+  DEPRECATION: A future pip version will change local packages to be built in-place without first copying to a temporary directory. We recommend you use --use-feature=in-tree-build to test your packages with this new behavior before it becomes the default.
+   pip 21.3 will remove support for this functionality. You can find discussion regarding this at https://github.com/pypa/pip/issues/7555.
+Processing c:\users\djani\downloads\paybotus\src\frameworks\chatbot
+Processing c:\users\djani\downloads\paybotus\src\frameworks\nlp-engine
+Processing c:\users\djani\downloads\paybotus\src\frameworks\rule-engine
+Collecting django
+  Downloading Django-3.2.5-py3-none-any.whl (7.9 MB)
+     |████████████████████████████████| 7.9 MB 386 kB/s
+Collecting ibm-cloud-sdk-core==0.5.1
+  Downloading ibm-cloud-sdk-core-0.5.1.tar.gz (17 kB)
+Collecting ibm-watson==3.4.0
+  Downloading ibm-watson-3.4.0.tar.gz (276 kB)
+     |████████████████████████████████| 276 kB 504 kB/s
+Collecting redis
+  Downloading redis-3.5.3-py2.py3-none-any.whl (72 kB)
+     |████████████████████████████████| 72 kB 166 kB/s
+Collecting pymongo
+  Downloading pymongo-3.12.0-cp37-cp37m-win_amd64.whl (396 kB)
+     |████████████████████████████████| 396 kB 467 kB/s
+Collecting pandas
+  Downloading pandas-1.1.5-cp37-cp37m-win_amd64.whl (8.7 MB)
+     |████████████████████████████████| 8.7 MB 185 kB/s
+Collecting gunicorn
+  Downloading gunicorn-20.1.0-py3-none-any.whl (79 kB)
+     |████████████████████████████████| 79 kB 225 kB/s
+Collecting spacy==2.2.4
+  Downloading spacy-2.2.4-cp37-cp37m-win_amd64.whl (9.9 MB)
+     |████████████████████████████████| 9.9 MB 11 kB/s
+Collecting PyJWT==1.7.1
+  Downloading PyJWT-1.7.1-py2.py3-none-any.whl (18 kB)
+Collecting pycryptodome==3.9.0
+  Downloading pycryptodome-3.9.0-cp37-cp37m-win_amd64.whl (10.1 MB)
+     |██████████████                  | 4.4 MB 177 kB/s eta 0:00:33
+
+
+
+
+
+(env) C:\devenv\paybotus>pip list
+Package                Version
+---------------------- ---------
+asgiref                3.4.1
+blis                   0.4.1
+catalogue              1.0.0
+certifi                2021.5.30
+charset-normalizer     2.0.4
+colorama               0.4.4
+ConditionEvaluator     0.2.0.10
+cymem                  2.0.5
+Django                 3.2.7
+gunicorn               20.1.0
+ibm-cloud-sdk-core     0.5.1
+ibm-watson             3.4.0
+idna                   3.2
+importlib-metadata     4.8.1
+jsonformatter          0.2.3
+murmurhash             1.0.5
+NLPEngine              0.2.0.0
+numpy                  1.21.2
+pandas                 1.1.5
+PaxcelChatBotFramework 0.1.0.2
+pip                    21.2.1
+plac                   1.1.3
+preshed                3.0.5
+pycryptodome           3.9.0
+PyJWT                  1.7.1
+pymongo                3.12.0
+python-dateutil        2.8.2
+pytz                   2021.1
+redis                  3.5.3
+requests               2.26.0
+RuleEngine             0.3.3.2
+setuptools             57.4.0
+six                    1.16.0
+spacy                  2.2.4
+sqlparse               0.4.1
+srsly                  1.0.5
+thinc                  7.4.0
+tqdm                   4.62.2
+typing-extensions      3.10.0.2
+urllib3                1.26.6
+wasabi                 0.8.2
+websocket-client       0.48.0
+wheel                  0.36.2
+zipp                   3.5.0
+
+
+check same path 3.7 and interpreter

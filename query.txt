@@ -1,0 +1,15 @@
+{"_id":{"$oid":"61025c1096a011ef38f9b3dc"},"slots":[],"actions":[],"response":[{"type":"options","value":{"text":"In order for us to contact you I need some contact information.Which way would you prefer we contact you?","options":[{"value":{"input":{"text":"Contact by email"}},"label":"Contact by email"},{"value":{"input":{"text":"Contact by phone"}},"label":"Contact by phone"},{"value":{"input":{"text":"Contact by both"}},"label":"Contact by both"}]}}],"name":"methodsToContactUserBubbles","node_id":"node_vg_1_1539772652659","parent_dialog_id":"node_vg_1_1539772652658","sibling_dialog_id":"","condition":"False","added_by":{"username":"system"},"added_on":{"$date":"2021-07-29T07:43:11.770Z"},"updated_by":{"username":"system"},"updated_on":{"$date":"2021-07-29T07:43:11.770Z"},"is_active":true,"is_deleted":false,"custom":false,"industry_code":"pymt","pmts_group_id":{"$oid":"61025c0f96a011ef38f9b359"}}
+
+
+
+{"_id":{"$oid":"61025c1096a011ef38f9b3dd"},"slots":[{"checkFor":"@email","saveAs":"$email","required":true,"response":{"type":"textData","value":{"text":"Please enter your email address.","data":{"confidentialInformationEnable":false}}},"default":""}],"actions":[{"type":"convertValueArrayToString","value":{"keys":["$email"]}}],"response":[{"type":"text","value":"Please confirm that the following information is correct:"},{"type":"text","value":"Name: $name <br> Email: $email"},{"type":"options","value":{"text":"","options":[{"value":{"input":{"text":"Yes"}},"label":"It is correct"},{"value":{"input":{"text":"No"}},"label":"It is not correct"}]}}],"name":"getAndConfirmEmailCorrect","node_id":"node_vg_1_1539772652660","parent_dialog_id":"node_vg_1_1539772652659","sibling_dialog_id":"","condition":"#communicationMedium and @AuthType!:Phone and @AuthType:Email","added_by":{"username":"system"},"added_on":{"$date":"2021-07-29T07:43:11.770Z"},"updated_by":{"username":"system"},"updated_on":{"$date":"2021-07-29T07:43:11.770Z"},"is_active":true,"is_deleted":false,"custom":false,"industry_code":"pymt","pmts_group_id":{"$oid":"61025c0f96a011ef38f9b359"}}
+
+
+> db.paybotus_master_dialog.updateOne({"node_id": "node_vg_1_1539772652659"},{$pull:{"response.0.value.options":{"label":"Contact by email"}}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 0 }
+
+
+
+
+ condition $name and $name!:''   56
+jump to 58

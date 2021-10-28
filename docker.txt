@@ -1,0 +1,370 @@
+wsl update download and activate oooo
+
+folder ma jaake terminal kholna 
+docker build -t image_name .
+
+docker run --rm image_name
+
+C:\Users\djani\Documents\project>docker run second_image_name ls
+app.py
+requirements.txt
+
+run=create+start
+
+>docker ps -a all container
+
+docker image ls	  all image
+
+C:\Users\djani\Documents\project>docker container ls -a
+CONTAINER ID   IMAGE               COMMAND           CREATED        STATUS                    PORTS     NAMES
+e91e484a0afa   second_image_name   "ls"              14 hours ago   Exited (0) 14 hours ago             affectionate_mendel
+cd8c39d14c81   second_image_name   "python app.py"   17 hours ago   Exited (0) 15 hours ago             gracious_visvesvaraya
+fdb4ecfcb3c4   image_name          "python app.py"   18 hours ago   Exited (1) 18 hours ago             flamboyant_meninsky
+e1781d47ed53   image_name          "python app.py" d  18 hours ago   Exited (1) 18 hours ago             busy_neumann
+
+C:\Users\djani\Documents\project>docker start flamboyant_meninsky
+flamboyant_meninsky
+
+C:\Users\djani\Documents\project>docker images
+REPOSITORY          TAG       IMAGE ID       CREATED        SIZE
+second_image_name   latest    9787a10d202e   18 hours ago   325MB
+image_name          latest    0aa7a410d13c   21 hours ago   291MB
+
+C:\Users\djani\Documents\project>docker commit flamboyant_meninsky                           #commit for container to image
+sha256:38dccb86b266819c5b795bb87d271657b74df6eb5f9d5d80c47dd3cb2107056c
+
+C:\Users\djani\Documents\project>docker images
+REPOSITORY          TAG       IMAGE ID       CREATED         SIZE
+<none>              <none>    38dccb86b266   4 seconds ago   291MB
+second_image_name   latest    9787a10d202e   18 hours ago    325MB
+image_name          latest    0aa7a410d13c   21 hours ago    291MB
+
+C:\Users\djani\Documents\project>docker tag 38dccb86b266 container_to_image
+
+C:\Users\djani\Documents\project>docker images
+REPOSITORY           TAG       IMAGE ID       CREATED              SIZE
+container_to_image   latest    38dccb86b266   About a minute ago   291MB
+second_image_name    latest    9787a10d202e   18 hours ago         325MB
+
+
+
+C:\Users\djani\Documents\project>docker stop flamboyant_meninsky
+flamboyant_meninsky
+
+C:\Users\djani\Documents\project>docker rm flamboyant_meninsky
+flamboyant_meninsky
+
+C:\Users\djani\Documents\project>docker ps -a
+CONTAINER ID   IMAGE               COMMAND           CREATED        STATUS                    PORTS     NAMES
+e91e484a0afa   second_image_name   "ls"              15 hours ago   Exited (0) 15 hours ago             affectionate_mendel
+cd8c39d14c81   second_image_name   "python app.py"   18 hours ago   Exited (0) 15 hours ago             gracious_visvesvaraya
+e1781d47ed53   image_name          "python app.py"   18 hours ago   Exited (1) 18 hours ago             busy_neumann
+
+
+
+
+
+
+C:\Users\djani\Documents\project>docker build -t build_image_from_docker_file .
+[+] Building 5.5s (10/10) FINISHED
+ => [internal] load build definition from Dockerfile                                                                                                   0.2s
+ => => transferring dockerfile: 32B                                                                                                                    0.0s
+ => [internal] load .dockerignore                                                                                                                      0.1s
+ => => transferring context: 2B                                                                                                                        0.0s
+ => [internal] load metadata for docker.io/library/python:3.7-slim                                                                                     4.5s
+ => [1/5] FROM docker.io/library/python:3.7-slim@sha256:1189006488425ef977c9257935a38766ac6090159aa55b08b62287c44f848330                               0.0s
+ => [internal] load build context                                                                                                                      0.1s
+ => => transferring context: 175B                                                                                                                      0.0s
+ => CACHED [2/5] COPY requirements.txt /app/                                                                                                           0.0s
+ => CACHED [3/5] WORKDIR /app                                                                                                                          0.0s
+ => CACHED [4/5] RUN pip install --upgrade pip     &&  pip install --trusted-host pypi.python.org --requirement requirements.txt                       0.0s
+ => [5/5] COPY app.py /app                                                                                                                             0.2s
+ => exporting to image                                                                                                                                 0.3s
+ => => exporting layers                                                                                                                                0.2s
+ => => writing image sha256:806441642c7291b11fc8f33e99c40103395c7ec40f58ed386d1304d77135c5f6                                                           0.0s
+ => => naming to docker.io/library/build_image_from_docker_file                                                                                        0.0s
+
+Use 'docker scan' to run Snyk tests against images to find vulnerabilities and learn how to fix them
+
+C:\Users\djani\Documents\project>docker run --rm build_image_from_docker_file
+running python scripts using docker
+django version: 3.2.5
+
+
+
+
+
+C:\Users\djani\Documents\project>docker run --rm build_image_from_docker_file
+running python scripts using docker
+django version: 3.2.5
+
+C:\Users\djani\Documents\project>docker ps -a
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+C:\Users\djani\Documents\project>docker container ls -a
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+C:\Users\djani\Documents\project>docker run build_image_from_docker_file
+running python scripts using docker
+django version: 3.2.5
+
+C:\Users\djani\Documents\project>docker container ls -a
+CONTAINER ID   IMAGE                          COMMAND           CREATED         STATUS                     PORTS     NAMES
+6b09878cfe7e   build_image_from_docker_file   "python app.py"   6 seconds ago   Exited (0) 4 seconds ago             recursing_saha
+
+
+C:\Users\djani\Documents\project>docker commit recursing_saha container_to_image
+sha256:57de1f07aa8169d459a3efb62235c057bcdb4b0f74d3f998e8db01402b7c7a0c
+
+C:\Users\djani\Documents\project>docker images
+REPOSITORY                     TAG       IMAGE ID       CREATED          SIZE
+container_to_image             latest    57de1f07aa81   12 seconds ago   325MB
+build_image_from_docker_file   latest    806441642c72   4 minutes ago    325MB
+<none>                         <none>    38dccb86b266   16 minutes ago   291MB
+second_image_name              latest    9787a10d202e   18 hours ago     325MB
+image_name                     latest    0aa7a410d13c   21 hours ago     291MB
+
+
+C:\Users\djani\Documents\project>docker images
+REPOSITORY                     TAG       IMAGE ID       CREATED          SIZE
+container_to_image             latest    57de1f07aa81   12 seconds ago   325MB
+build_image_from_docker_file   latest    806441642c72   4 minutes ago    325MB
+<none>                         <none>    38dccb86b266   16 minutes ago   291MB
+second_image_name              latest    9787a10d202e   18 hours ago     325MB
+image_name                     latest    0aa7a410d13c   21 hours ago     291MB
+
+C:\Users\djani\Documents\project>docker run --rm container_to_image
+running python scripts using docker
+django version: 3.2.5
+
+
+https://towardsdatascience.com/15-docker-commands-you-should-know-970ea5203421
+
+
+docker container rm my_container — Delete one or more containers.
+docker container rm $(docker ps -a -q) — Delete all containers that are not running.
+
+
+
+C:\Users\djani\Documents\project>docker tag build_image_from_docker_file  dineshjani29/repo_name
+
+C:\Users\djani\Documents\project>docker push dineshjani29/repo_name:tagname
+The push refers to repository [docker.io/dineshjani29/repo_name]
+tag does not exist: dineshjani29/repo_name:tagname
+
+C:\Users\djani\Documents\project>docker push dineshjani29/repo_name
+Using default tag: latest
+The push refers to repository [docker.io/dineshjani29/repo_name]
+6679594d0c56: Pushing [==================================================>]   2.56kB
+5b7cc1bb924d: Pushing [>                                                  ]  530.4kB/205MB
+5f70bf18a086: Pushing  1.024kB
+4bc1b0b6fe34: Pushing [==================================================>]  3.072kB
+ba1b0671139e: Pushing [=========>                                         ]  1.763MB/9.51MB
+ab0aea94ff33: Waiting
+a6c5fb8312c6: Waiting
+5e34d134c883: Waiting
+
+
+docker pull   dineshjani29/repo_name
+
+
+
+npx kill-port 8080
+
+
+
+
+>docker run -d -p 8000:8000 new_image
+
+
+C:\Users\djani\Documents\docker-application>docker build -t second_image .
+[+] Building 15.1s (11/11) FINISHED
+ => [internal] load build definition from Dockerfile                                                               0.1s
+ => => transferring dockerfile: 32B                                                                                0.0s
+ => [internal] load .dockerignore                                                                                  0.1s
+ => => transferring context: 2B                                                                                    0.0s
+ => [internal] load metadata for docker.io/library/python:3.6                                                      7.4s
+ => [auth] library/python:pull token for registry-1.docker.io                                                      0.0s
+ => [internal] load build context                                                                                  4.3s
+ => => transferring context: 749.37kB                                                                              4.2s
+ => [1/5] FROM docker.io/library/python:3.6@sha256:86e63d4e262124f4230174dd54f770beb84f190abc6d2b935c093e3bc9ace6  0.0s
+ => CACHED [2/5] WORKDIR /code                                                                                     0.0s
+ => CACHED [3/5] COPY requirements.txt /code/                                                                      0.0s
+ => CACHED [4/5] RUN pip install -r requirements.txt                                                               0.0s
+ => [5/5] COPY . /code/                                                                                            1.4s
+ => exporting to image                                                                                             1.7s
+ => => exporting layers                                                                                            1.5s
+ => => writing image sha256:c3741a88f7d49e4a9a3966ea3e163dd5946bc409c3b5ddbce4e7a6d8dcc293d5                       0.0s
+ => => naming to docker.io/library/second_image                                                                    0.0s
+
+Use 'docker scan' to run Snyk tests against images to find vulnerabilities and learn how to fix them
+
+C:\Users\djani\Documents\docker-application>docker run -d -p 8000:8000 second_image
+7203498273a56bbc71b953041ebdddb223cb019ec3f6ffe1b123522d560ab82e
+
+
+docker exec -it jolly_hypatia /bin/bash
+
+C:\Users\djani\Documents\docker-application1>docker exec -it jolly_hypatia /bin/bash
+root@81a5a0e2e593:/code# ls
+api_response  django_project  docker  dockerfile  env  manage.py  requirements.txt  start.sh
+root@81a5a0e2e593:/code# echo "this is readmefile">>readme.txt
+root@81a5a0e2e593:/code# ls
+api_response  django_project  docker  dockerfile  env  manage.py  readme.txt  requirements.txt  start.sh
+root@81a5a0e2e593:/code#
+
+
+// start the container
+docker start nodeapi
+// execute the exec command
+docker exec -it nodeapi bash
+
+
+C:\Users\djani\Documents\docker-application1>docker logs 81a5a0e2e593
+server running at port 8000
+Watching for file changes with StatReloader
+[22/Oct/2021 06:40:35] "GET / HTTP/1.1" 200 10
+[22/Oct/2021 06:40:36] "GET / HTTP/1.1" 200 10
+[22/Oct/2021 06:46:44] "GET / HTTP/1.1" 200 10
+
+
+C:\Users\djani\Documents\docker-application1> docker exec -it 81a5a0e2e593 /bin/bash
+root@81a5a0e2e593:/code# ls
+api_response    docker      env        readme.txt        start.sh
+django_project  dockerfile  manage.py  requirements.txt
+
+
+
+
+C:\Users\djani\Documents\demo-compose>docker-compose config
+services:
+  app1:
+    image: image_name
+  app2:
+    image: docker_application2_image
+version: '3'
+
+
+C:\Users\djani\Documents\demo-compose>docker-compose config
+ERROR: The Compose file '.\docker-compose.yml' is invalid because:
+Unsupported config option for services.app1: 'port' (did you mean 'ports'?)
+
+C:\Users\djani\Documents\demo-compose>docker-compose config
+services:
+  app1:
+    image: image_name
+    ports:
+    - published: 8000
+      target: 8000
+  app2:
+    image: docker_application2_image
+version: '3'
+
+
+C:\Users\djani\Documents\demo-compose>docker-compose config
+services:
+  app1:
+    image: image_name
+    ports:
+    - published: 8000
+      target: 8000
+  app2:
+    image: docker_application2_image
+    ports:
+    - published: 8080
+      target: 8080
+version: '3'
+
+
+C:\Users\djani\Documents\demo-compose>docker-compose up
+Creating network "demo-compose_default" with the default driver
+Creating demo-compose_app1_1 ... done
+Creating demo-compose_app2_1 ... done
+Attaching to demo-compose_app2_1, demo-compose_app1_1
+app1_1  | server running at port 8000
+app2_1  | server running at port 8080
+app2_1  | Watching for file changes with StatReloader
+app1_1  | Watching for file changes with StatReloader
+app2_1  | [25/Oct/2021 02:13:25] "GET / HTTP/1.1" 200 10
+app1_1  | [25/Oct/2021 02:13:25] "GET / HTTP/1.1" 200 10
+# make sure space after : 
+
+
+version: '3'
+
+services:
+  app1: 
+    build: . 
+    ports:
+     - "8000:8000"
+
+
+ docker images -a -q | % { docker image rm $_ -f }   for image delete 
+
+
+
+
+To delete all images
+
+docker rmi $(docker images -a)
+To delete containers which are in exited state
+
+docker rm $(docker ps -a -f status=exited -q)
+To delete containers which are in created state
+
+docker rm $(docker ps -a -f status=created -q)
+
+5dd5cc8729fb   none                          null      local
+PS C:\WINDOWS\system32> docker images -a -q | % { docker image rm $_ -f }
+Untagged: docker-application1_app1:latest
+Deleted: sha256:01f5d2dd082cb1f7c964cd91b3f2e3f76929770243816c4fb8e03855dd8860cd
+Untagged: image_name:latest
+Deleted: sha256:2103e9c7f57c8542eeac923837cd0cec1df9326dd1fd2c9bb023407886a5d917
+Untagged: docker_application2_image:latest
+Deleted: sha256:ff9464b13ea0a5cf042395eb7dd94b6777bb7239241b00a597a679d0ec4d8c58
+PS C:\WINDOWS\system32> docker rm $(docker ps -a -f status=exited -q)
+80be42bac07e
+e9e6ce41936d
+81a5a0e2e593
+2bfb7ad36051
+PS C:\WINDOWS\system32> docker rm $(docker ps -a -f status=created -q)
+b3f7655b6dee
+
+
+
+
+
+
+
+
+apt-get update
+apt-get install iputils-ping
+
+ docker inspect  demo-compose_app1_1
+
+
+
+
+
+
+ docker exec -it  demo-compose_app1_1  /bin/bash
+
+
+
+Remove unused images
+
+docker image prune --alls
+
+build: ./dir
+image: webapp:tag       //add tag in image
+
+
+
+
+    volumes: 
+     - type: bind
+       source: .
+       target: /code/volume
+
+docker volume prune
+

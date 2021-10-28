@@ -1,0 +1,166 @@
+git rm --cached -r bin/
+     only remove from staged area not from darectory
+
+
+
+git restore --stage file.js  (staged area to working darectory ) so it will show red M beacuse change are discarded in staged area
+                       back to previous state untracked file
+                     file2 before RESTORE  GREEN a BUT after restore its show ?? because its previous state is untraced
+
+
+
+
+git branch -D bugfix/signup-form
+
+
+
+git reset --hard HEAD~1
+
+
+
+
+
+djani@PXMT114-IG1 MINGW64 ~/Documents
+$ mkdir gitpractice
+
+djani@PXMT114-IG1 MINGW64 ~/Documents
+$ cd gitpractice
+
+djani@PXMT114-IG1 MINGW64 ~/Documents/gitpractice
+$ git init
+Initialized empty Git repository in C:/Users/djani/Documents/gitpractice/.git/
+
+djani@PXMT114-IG1 MINGW64 ~/Documents/gitpractice (master)
+$ echo hello>file1.txt
+
+djani@PXMT114-IG1 MINGW64 ~/Documents/gitpractice (master)
+$ echo hello>file2.txt
+
+djani@PXMT114-IG1 MINGW64 ~/Documents/gitpractice (master)
+$ git status
+On branch master
+
+No commits yet
+
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+        file1.txt
+        file2.txt
+
+nothing added to commit but untracked files present (use "git add" to track)
+
+djani@PXMT114-IG1 MINGW64 ~/Documents/gitpractice (master)
+$ git add .
+warning: LF will be replaced by CRLF in file1.txt.
+The file will have its original line endings in your working directory
+warning: LF will be replaced by CRLF in file2.txt.
+The file will have its original line endings in your working directory
+
+djani@PXMT114-IG1 MINGW64 ~/Documents/gitpractice (master)
+$ git diff --staged
+diff --git a/file1.txt b/file1.txt
+new file mode 100644
+index 0000000..ce01362
+--- /dev/null
++++ b/file1.txt
+@@ -0,0 +1 @@
++hello
+diff --git a/file2.txt b/file2.txt
+new file mode 100644
+index 0000000..ce01362
+--- /dev/null
++++ b/file2.txt
+@@ -0,0 +1 @@
++hello
+
+djani@PXMT114-IG1 MINGW64 ~/Documents/gitpractice (master)
+$ git commit -m "first commit"
+[master (root-commit) 2083a7f] first commit
+ 2 files changed, 2 insertions(+)
+ create mode 100644 file1.txt
+ create mode 100644 file2.txt
+
+djani@PXMT114-IG1 MINGW64 ~/Documents/gitpractice (master)
+$ git log
+commit 2083a7fac0e102b1557059f7f58bf531e772ff7c (HEAD -> master)
+Author: dinesh jani <dinesh.jani@paxcom.net>
+Date:   Thu Aug 19 14:17:21 2021 +0530
+
+    first commit
+
+djani@PXMT114-IG1 MINGW64 ~/Documents/gitpractice (master)
+$ git show head
+commit 2083a7fac0e102b1557059f7f58bf531e772ff7c (HEAD -> master)
+Author: dinesh jani <dinesh.jani@paxcom.net>
+Date:   Thu Aug 19 14:17:21 2021 +0530
+
+    first commit
+
+diff --git a/file1.txt b/file1.txt
+new file mode 100644
+index 0000000..ce01362
+--- /dev/null
++++ b/file1.txt
+@@ -0,0 +1 @@
++hello
+diff --git a/file2.txt b/file2.txt
+new file mode 100644
+index 0000000..ce01362
+--- /dev/null
++++ b/file2.txt
+@@ -0,0 +1 @@
++hello
+
+djani@PXMT114-IG1 MINGW64 ~/Documents/gitpractice (master)
+$ echo world>>file1.txt
+
+djani@PXMT114-IG1 MINGW64 ~/Documents/gitpractice (master)
+$ git diff
+warning: LF will be replaced by CRLF in file1.txt.
+The file will have its original line endings in your working directory
+diff --git a/file1.txt b/file1.txt
+index ce01362..94954ab 100644
+--- a/file1.txt
++++ b/file1.txt
+@@ -1 +1,2 @@
+ hello
++world
+
+djani@PXMT114-IG1 MINGW64 ~/Documents/gitpractice (master)
+$ git add file1.txt
+warning: LF will be replaced by CRLF in file1.txt.
+The file will have its original line endings in your working directory
+
+djani@PXMT114-IG1 MINGW64 ~/Documents/gitpractice (master)
+$ git status
+On branch master
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+        modified:   file1.txt
+
+
+djani@PXMT114-IG1 MINGW64 ~/Documents/gitpractice (master)
+$ git restore --staged file1.txt
+
+djani@PXMT114-IG1 MINGW64 ~/Documents/gitpractice (master)
+$ git status
+On branch master
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+  (use "git restore <file>..." to discard changes in working directory)
+        modified:   file1.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+
+djani@PXMT114-IG1 MINGW64 ~/Documents/gitpractice (master)
+$
+
+
+
+
+git checkout pp
+git pull origin pp
+git merge branch-name
+git add .
+git commit
+git push

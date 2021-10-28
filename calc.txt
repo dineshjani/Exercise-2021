@@ -1,0 +1,5 @@
+ek calculator class usma ek constructor call hoga usma input wali wali value pass kar dunga.
+
+uske baad calculate method pass karunga
+
+fir uss method ma ek or method call karunga

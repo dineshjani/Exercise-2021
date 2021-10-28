@@ -1,0 +1,32 @@
+1. messageloader ki abstract class bnayi hui ha to ye 1 se jyada hi honge to unma se konsa messageloader select karenge ye kaise decide karenge 
+or usi time handler class ka init call hoga.
+
+
+2.add name taki jab custom handler ko manually add naa karna pde ek -ek.phir phor loop lga ke kar skteha.
+
+
+def get_name():
+        return "TestError1"
+
+import os
+import inspect
+import json
+from ExceptionHandler.Components.messageLoader import MessageLoader
+
+class TestMessageLoader(MessageLoader):
+
+    def __init__(self, testName):
+        super().__init__()
+        path = os.path.join(os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))),
+                            'test_exceptions', f'{testName}.json')
+        with open(path, 'rt') as f:
+            rawValue = json.load(f)
+        self.messages = rawValue["messages"]
+
+    def getExceptionMessage(self, exception) -> list:
+        message = next(item for item in self.messages if exception in item)
+        return message[exception]
+
+    def getExceptions(self):
+        exceptions = list(set().union(*(d.keys() for d in self.messages)))
+        return exceptions

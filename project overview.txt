@@ -1,0 +1,157 @@
+service
+
+
+
+
+
+apps
+    billerdarect
+                webinputprocessor-Started execution of user request on Chatbot Input Processor'
+                                  getConversationId   getContext  process
+
+    
+              weboutputprocessor- Started creating output for user in chatbot output processor.
+
+                                  addConversationLog   getVisitorDetails formatLogMessage process
+
+
+
+
+    payanyone
+bots
+
+
+
+conversationmanager
+                    startConversation-return convid
+
+
+
+dataccesslayer
+              dbconnectionpooling-initializeDB,getMongoDb(),getDb()
+               dbhandler-
+                         sortRules- Sort rules,guard and response based on channel and billerId
+                         __getQueryforRules-Make query to get master data by channel
+                         __getQueryForCustomRules-Make query to get custom data by channel and biller
+                           getMasterRules-getmaster rule
+                           getCustomRules-get custom rule
+                           getrules-get master and custom rules and merge and sort
+                           getRuleById-get rules by node id from master and custom rules
+                           updateLogspush/setquery
+                            getCompiledRules-Get compiledRules based on billerId and channel from compiled Dialog collection
+                             storeCompiledRules-Store compiled Rules based on billerId and channel
+                             Get all custom/master/all guards based on billerId and channel
+
+dataparse-      
+              dataParseforlogandwatson-parseData,replaceEmails,replaceNumbers,lengthCheck
+                                         
+
+
+decisionengine         action-response
+                        conrextBuilder-
+                         engine-
+                         maskcontext-mask_data,mask_context
+                         ruleComplier-rule compiler remove duplicate rules,guards and responses for the list and
+                          RuleManager-getAllGuards, getAnyThingElseNode,
+                                       getRuleById, getRules, hasChildNode, storeCompiledRules,
+                                       getDialogVersion, getCompiledRules  import from dbhandler
+                            
+
+
+externalcall          initialize and getAccountName
+
+
+
+
+helper                helper function like formatedate,sliceinformation,filterdata,splitinfo,userb=nameingo,utils
+
+
+
+inputprocessor
+
+
+loganalytic          analytic
+                             getCHATLOGDataByDate  -startdate enddate db query
+                             avgSessionLengthbyDate-data query(startDate, endDate)
+                              getFeedbackDataByDate  (startDate, endDate)
+                              getPayTrackDataByDate   (startDate, endDate)
+                              payBillPerDay,autoPayBillPerDay(data),totalchatsPerDay,def totalChatEscalatedLiveAgent(data):
+                                               totalFeedbackByDay,totalUserByDay,totalChatEscalatedLiveAgent
+
+
+middleware             PaybotAuthMiddleware
+                               A Python replacement for java.util.Properties class
+                               This is modelled as closely as possible to the Java original.
+
+
+
+models                             WebResponse(response)
+
+
+outputprocessor
+
+paybotus
+
+
+paymentapi
+
+
+
+pyjavaproperties
+
+
+
+startApp               
+                            webstart   handleLive  processWebRequest new_conversation bankName  ( work as view  )      
+ 
+
+store                   datastore-Data store act as the central repo for the available data
+                        initializ(redis) generateConversationId createContext getBillerSetting getBillerPaymentConfigByAPI getBillerMessageConfigByAPI
+                             getBillerConfigByAPI
+
+
+logger               performancelogger-
+                                      def start()        def stop() stoptime-starttime
+
+
+
+
+
+
+
+
+
+
+
+
+Framework:
+
+
+chatbot-
+
+
+
+condition evaluator-
+
+
+nlp-engine-
+
+
+
+  
+rule-engine
+
+
+
+
+
+paxcelchatbotframework-
+                      bot.py-Bot.py file contains an abstract Bot class which act as an base class for all bot and all bot should have to implement CanHandle , process abstract method. *CanHandle method determine if the bot can handle this request or not . parameter of CanHandle (request: request object) ,return type is boolean (return: bool)Process method process the request to extract entity and intents of the user input . parameter of Process (reqeuest: reqeuest object
+
+
+                      inputprocessor-nputProcessor.py file contains an abstract inputProcessor class which act as an base class for all inputProcessor and all inputProcessor should have to implementCanHandle , process abstract method. * CanHandle method determine if this request can handle by the inputProcessor or not.CanHandle method return true/falsevalue. * Process method process the request object to convert to framework Request type of object
+
+
+
+
+
